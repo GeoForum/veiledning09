@@ -87,5 +87,11 @@ function render() {
 render();
 ```
 
-Vi lager en egen funksjon som tegner ut scenen kontinuerlig ettersom kameravinkelen endrer seg. Vi får nå et kart i perspektiv som ser slik ut: 
+Vi lager en egen funksjon som tegner ut scenen kontinuerlig ettersom kameravinkelen endrer seg. Vi får nå et <a href="">kart i perspektiv</a> som ser slik ut: 
+
+[![Bakgrunnskart for Oslo](img/basemap_3d.png)](http://geoforum.github.io/veiledning09/kartverket.html)
+
+Prøv å endre kameraposisjonen ved å justere verdiene for: camera.position.set(0, -200, 120)
+
+
 
