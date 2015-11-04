@@ -11,7 +11,7 @@ Vi bør være forsiktig med bruk av 3D til å visualisere statistikk. Av og til 
 
 Three.js er et biblioteket som gjør det mye enklere å lage 3D-visualiseringer i nettleseren. Det er ikke laget spesielt for kart, men heldigvis er det lett å konvertere UTM-koordinater til Three.js sitt koordinatsystem. 
 
-### Bakgrunnskart fra Kartverket
+### WMS-tjenester fra Kartverket
 
 Vi skal vise søylene oppå det samme bakgrunnskartet som vi brukte i <a href="https://github.com/GeoForum/veiledning08">det 2-dimensjonale kartet </a>, men siden Three.js ikke har støtte for kartfliser (tiles), skal vi laste inn kartet som ett stort bilde. Vi bruker her <a href="http://kartverket.no/Kart/Gratis-kartdata/WMS-tjenester/">WMS-tjensten til Kartverket</a> for å definere og laste ned kartbildet. Web Map Service (WMS) er en kjent kartstandard som lar deg laste ned kart i ulike projeksjoner og hvor du selv kan bestemme hva som skal vises på kartet (<a href="http://openwms.statkart.no/skwms1/wms.topo2.graatone?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities">se oversikt</a>). Det er ikke mulig å laste inn bildet direkte fra Kartverkets server til Three.js, pga. sikkerhetsinnstillingene i nettleseren. I steden lagrer vi en lokal kopi av kartet. 
 
@@ -29,6 +29,8 @@ For å hente ut dette kartutsnittet for Oslo kan vi bruke følgende URL:
 Her har vi angitt at kartprojeksjonen skal være UTM 33N (CRS=EPSG:32633), utsnittet er definert av koordinatene over (BBOX=253700,6637800,273800,6663700), oppløsningen skal være 10 meter per pixel (WIDTH=2010, HEIGHT=2590), og vi ønsker å vise følgende kartlag (LAYERS): fjellskygge, vann, elver, bilveg og bygninger. URL'en returnerer dette kartet: 
 
 [![Bakgrunnskart for Oslo](img/wms_oslo.jpg)](https://github.com/GeoForum/veiledning09/blob/gh-pages/data/wms_oslo_topo2_graatone.jpg)
+
+### Bakgrunnskart i Three.js
 
 Vi kan nå sette opp kartet i Three.js. Først definerer vi noen størrelser:
 
@@ -88,6 +90,8 @@ Vi lager en egen funksjon som tegner ut scenen kontinuerlig ettersom kameravinke
 [![Bakgrunnskart for Oslo](img/basemap_3d.png)](http://geoforum.github.io/veiledning09/kartverket.html)
 
 Prøv å endre kameraposisjonen ved å justere verdiene for: camera.position.set(0, -200, 120)
+
+### Statistikk i 3D
 
 Vi er nå klare for å legge på befolkningsdataene fra SSB: 
 
