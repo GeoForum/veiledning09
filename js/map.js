@@ -22,18 +22,11 @@ var scene = new THREE.Scene();
 
 var geometry = new THREE.PlaneGeometry(sceneWidth, sceneHeight, 1, 1);
 
-
-
 var material = new THREE.MeshPhongMaterial({
-    //map: THREE.ImageUtils.loadTexture(wmsUrl)
     map: THREE.ImageUtils.loadTexture('data/wms_oslo_topo2_graatone.png')
 });
 var plane = new THREE.Mesh(geometry, material);
 scene.add(plane);
-
-
-//var axes = new THREE.AxisHelper(50);
-//scene.add(axes);
 
 var aLight = new THREE.AmbientLight(0x777777); // soft white light
 scene.add(aLight);
