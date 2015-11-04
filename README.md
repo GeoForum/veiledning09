@@ -2,26 +2,22 @@
 
 Laget av <a href="http://mastermaps.com/">Bjørn Sandvik</a>
 
-I <a href="https://github.com/GeoForum/veiledning08">veiledning 8</a> laget vi et interaktivt kart over befolkningen i Oslo kommune. 
+I <a href="https://github.com/GeoForum/veiledning08">veiledning 8</a> konstruerte vi et interaktivt kart over befolkningen i Oslo kommune. 
 Her skal vi vise de samme dataene i 3D med bruk av WebGL og <a href="http://threejs.org/">Three.js</a>. 
 
 [![3D befolkningskart for Oslo](img/oslo3d.gif)](http://geoforum.github.io/veiledning09/)
 
-I tillegg til fargen angir også høyden hvor mange som bor i hver rute på 100 x 100 meter. 
-
-Vi bør være forsiktig med bruk av 3D til å visualisere statistikk. Av og til kan det forsvares for å skape oppmerksomhet og interesse, og det kan være lettere å se geografiske variasjoner ved bruk av høyde enn kun farge. Samtidig vil søylene blokkere for hverandre, og perspektivet gjør det vanseligere å sammenligne søylene med hverandre.  
+Vi bør være forsiktig med bruk av 3D til å visualisere statistikk. Av og til kan det forsvares for å skape oppmerksomhet og interesse, og det kan være lettere å se geografiske variasjoner ved bruk av en ekstra dimensjon. Samtidig vil søylene blokkere for hverandre, og perspektivet gjør det vanskeligere å sammenligne høydene.  
 
 Three.js er et biblioteket som gjør det mye enklere å lage 3D-visualiseringer i nettleseren. Det er ikke laget spesielt for kart, men heldigvis er det lett å konvertere UTM-koordinater til Three.js sitt koordinatsystem. 
 
 ### Bakgrunnskart fra Kartverket
 
-Vi skal vise søylene oppå det samme bakgrunnskartet som vi brukte i <a href="https://github.com/GeoForum/veiledning08">den forrige veiledningen</a>, men siden Three.js ikke har støtte for kartfliser (tiles), skan vi laste inn kartet som ett stort bilde. Vi bruker her <a href="http://kartverket.no/Kart/Gratis-kartdata/WMS-tjenester/">WMS-tjensten til Kartverket</a> for å laste ned kartbildet. 
- 
-Web Map Service (WMS) er en kjent kartstandard som lar deg laste ned kart i ulike projeksjoner og hvor du selv kan bestemme hva som skal vises på kartet (<a href="http://openwms.statkart.no/skwms1/wms.topo2.graatone?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities">se oversikt</a>). Det er ikke mulig å laste inn bildet direkte fra Kartverkets server til Three.js, pga. sikkerhetsinnstillingene i nettleseren. I steden lagrer vi en lokal kopi av kartet. 
+Vi skal vise søylene oppå det samme bakgrunnskartet som vi brukte i <a href="https://github.com/GeoForum/veiledning08">det 2-dimensjonale kartet </a>, men siden Three.js ikke har støtte for kartfliser (tiles), skal vi laste inn kartet som ett stort bilde. Vi bruker her <a href="http://kartverket.no/Kart/Gratis-kartdata/WMS-tjenester/">WMS-tjensten til Kartverket</a> for å definere og laste ned kartbildet. Web Map Service (WMS) er en kjent kartstandard som lar deg laste ned kart i ulike projeksjoner og hvor du selv kan bestemme hva som skal vises på kartet (<a href="http://openwms.statkart.no/skwms1/wms.topo2.graatone?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities">se oversikt</a>). Det er ikke mulig å laste inn bildet direkte fra Kartverkets server til Three.js, pga. sikkerhetsinnstillingene i nettleseren. I steden lagrer vi en lokal kopi av kartet. 
 
-Vi skal vise befolkningsstatistikk for Oslo kommune, og hvis vi tenker oss en firkant rundt polygonet for Oslo kommune vil denne ha følgende koorinater i UTM 33:
+Vi skal vise befolkningsstatistikk for Oslo kommune, og hvis vi tenker oss en firkant rundt polygonet for Oslo kommune vil denne ha følgende koordinater i UTM 33:
 
-Sørvest: 253700, 6637800
+Sørvest: 253700, 6637800 - 
 Nordøst: 273800, 6663700
 
 UTM-koordinater er i meter, og dette gir oss et område som er 273 800 - 253 700 = 20 100 meter fra vest til øst, og 6 663 700 - 6 637 800 = 25 900 meter fra nord til sør.  
@@ -30,7 +26,7 @@ For å hente ut dette kartutsnittet for Oslo kan vi bruke følgende URL:
  
 <a href="http://openwms.statkart.no/skwms1/wms.topo2.graatone?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&CRS=EPSG:32633&BBOX=253700,6637800,273800,6663700&WIDTH=2010&HEIGHT=2590&LAYERS=fjellskygge,N50Vannflate,N50Vannkontur,N50Elver,N50Bilveg,N50Bygningsflate&FORMAT=image/jpeg">http://openwms.statkart.no/skwms1/wms.topo2.graatone?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&CRS=EPSG:32633&BBOX=253700,6637800,273800,6663700&WIDTH=2010&HEIGHT=2590&LAYERS=fjellskygge,N50Vannflate,N50Vannkontur,N50Elver,N50Bilveg,N50Bygningsflate&FORMAT=image/jpeg</a>
 
-Her har vi angitt at kartprojeksjonen ska være UTM 33N (CRS=EPSG:32633), utsnittet er definert av koordinatene over (BBOX=253700,6637800,273800,6663700), oppløsningen skal være 10 meter per pixel (WIDTH=2010, HEIGHT=2590), og vi ønsker å vise følgende kartlag (LAYERS): fjellskygge, vann, elver, bilveg og bygninger. URL'en returnerer dette kartet: 
+Her har vi angitt at kartprojeksjonen skal være UTM 33N (CRS=EPSG:32633), utsnittet er definert av koordinatene over (BBOX=253700,6637800,273800,6663700), oppløsningen skal være 10 meter per pixel (WIDTH=2010, HEIGHT=2590), og vi ønsker å vise følgende kartlag (LAYERS): fjellskygge, vann, elver, bilveg og bygninger. URL'en returnerer dette kartet: 
 
 [![Bakgrunnskart for Oslo](img/wms_oslo.jpg)](https://github.com/GeoForum/veiledning09/blob/gh-pages/data/wms_oslo_topo2_graatone.jpg)
 
@@ -61,7 +57,7 @@ renderer.setSize(width, height);
 document.body.appendChild(renderer.domElement);
 ```
 
-Videre oppretter vi en scene med Three.js hvor vi kan legge til elementer. Vi oppretter også et kamera og angir hvor vi ser på 3D-scenen fra. Vi bruker THREE.TrackballControls som gjør at brukeren selv kan styre kameraet og se på visualiseringen fra ulike vinkler. Til slutt spesifiserer vi at kartet skal tegnes ut med WebGL med bredden og høyden definert over. 
+Videre oppretter vi en scene med Three.js hvor vi kan legge til elementer. Vi oppretter også et kamera og angir hvor vi ser på 3D-scenen fra. Vi bruker <a href="http://threejs.org/examples/misc_controls_trackball.html">THREE.TrackballControls</a> som gjør at brukeren selv kan styre kameraet og se på visualiseringen fra ulike vinkler. Til slutt spesifiserer vi at kartet skal tegnes ut med WebGL med bredden og høyden definert over. 
 
 ```javascript
 var geometry = new THREE.PlaneGeometry(sceneWidth, sceneHeight, 1, 1),
@@ -131,7 +127,7 @@ csv('data/Oslo_bef_100m_2015.csv').get(function(error, data) { // ru250m_2015.cs
 });
 ```
 
-Vi definerere størrelsen på rutene (cellSize) til 100 meter, og regner ut hvor mye det tilsvarer i koordinatsystemet til Three.js (boxSize). Vi lager også en <a href="https://github.com/mbostock/d3/wiki/Quantitative-Scales#linear-scales">lineær fargeskala med D3.js</a>. Her bruker også D3.js til å lese inn dataene, og for hver rute finner vi x og y UTM-koordinat (<a href="https://github.com/GeoForum/veiledning08#hvordan-lage-et-rutenett">se detaljer i veiledning 8</a>). UTM-koordinatene blir så konvertert verdier som passer med scenen vi har definert over. 
+Vi definerere størrelsen på rutene (cellSize) til 100 meter, og regner ut hvor mye det tilsvarer i koordinatsystemet til Three.js (boxSize). Vi lager også en <a href="https://github.com/mbostock/d3/wiki/Quantitative-Scales#linear-scales">lineær fargeskala med D3.js</a>. D3 brukes også til å lese inn dataene, og for hver rute finner UTM-koordinatene fra id'en til ruta (<a href="https://github.com/GeoForum/veiledning08#hvordan-lage-et-rutenett">se detaljer i veiledning 8</a>). UTM-koordinatene blir så konvertert verdier som passer med scenen vi har definert over. 
   
 Alle ruter får en søyle eller en boks (BoxGeometry) hvor høyden og fargen bestemmes av antall innbyggere. Søylen plasseres på riktig sted, og legges til scenen vår. 
   
@@ -148,7 +144,7 @@ var ambLight = new THREE.AmbientLight(0x777777);
 scene.add(ambLight);
 ```
 
-"Directional light" er lys som kommer fra en retning, som fra Sola, mens "ambient light" er overalt og siker at det også er litt lys på "baksiden" av søylene. Vi må også endre materialet til søylene til et som reflekterer lys (MeshPhongMaterial):
+"Directional light" er lys som kommer fra en retning, som fra sola, mens "ambient light" er overalt og siker at det også er litt lys på "baksiden" av søylene. Vi må også endre "materialet" på søylene til et som reflekterer lys (<a href="http://threejs.org/docs/#Reference/Materials/MeshPhongMaterial">MeshPhongMaterial</a>):
   
 ```javascript  
 var material = new THREE.MeshPhongMaterial({
