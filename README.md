@@ -23,7 +23,7 @@ Vi skal vise befolkningsstatistikk for Oslo kommune, og hvis vi tenker oss en fi
 
 Sørvest: 253700, 6637800 - Nordøst: 273800, 6663700
 
-UTM-koordinater er i meter, og dette gir oss et område som er 273 800 - 253 700 = 20 100 meter fra nord til sør, og 6 663 700 - 6 637 800 = 25 900 meter fra vest til øst.  
+UTM-koordinater er i meter, og dette gir oss et område som er 273 800 - 253 700 = 20 100 meter fra vest til øst, og 6 663 700 - 6 637 800 = 25 900 meter fra nord til sør.  
  
 For å hente ut dette kartutsnittet for Oslo kan vi bruke følgende URL: 
  
@@ -32,3 +32,4 @@ For å hente ut dette kartutsnittet for Oslo kan vi bruke følgende URL:
 Her har vi angitt at kartprojeksjonen ska være UTM 33N (CRS=EPSG:32633), utsnittet er definert av koordinatene over (BBOX=253700,6637800,273800,6663700), oppløsningen skal være 10 meter per pixel (WIDTH=2010, HEIGHT=2590), og vi ønsker å vise følgende kartlag (LAYERS): fjellskygge, vann, elver, bilveg og bygninger. URL'en returnerer dette kartet: 
 
 [![Bakgrunnskart for Oslo](img/wms_oslo.jpg)](https://github.com/GeoForum/veiledning09/blob/gh-pages/data/wms_oslo_topo2_graatone.jpg)
+
