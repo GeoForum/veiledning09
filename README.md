@@ -137,6 +137,25 @@ Alle ruter får en søyle eller en boks (BoxGeometry) hvor høyden og fargen bes
   
 ![Befolkningssøyler](img/population_3d.png)
   
+Søylene reiser seg nå opp fra kartet, men det er vanskelig å skille søylene fra hverandre. Dette kan vi forbedre ved å legge til et par lyskilder:
   
+```javascript  
+var dirLight = new THREE.DirectionalLight(0xcccccc, 1);
+dirLight.position.set(-70, -50, 80);
+scene.add(dirLight);  
 
+var ambLight = new THREE.AmbientLight(0x777777);
+scene.add(ambLight);
+```
 
+"Directional light" er lys som kommer fra en retning, som fra Sola, mens "ambient light" er overalt og siker at det også er litt lys på "baksiden" av søylene. Vi må også endre materialet til søylene til et som reflekterer lys (MeshPhongMaterial):
+  
+```javascript  
+var material = new THREE.MeshPhongMaterial({
+    color: colorScale(value)
+});
+```  
+
+Kartet vårt er nå ferdig: 
+
+[![3D befolkningskart for Oslo](img/population_final.png)](http://geoforum.github.io/veiledning09/)

@@ -36,15 +36,12 @@ textureLoader.load('data/wms_oslo_topo2_graatone.jpg', function(texture) {
     scene.add(plane);
 });
 
-/*
-var aLight = new THREE.AmbientLight(0x777777); // soft white light
-scene.add(aLight);
+var ambLight = new THREE.AmbientLight(0x777777);
+scene.add(ambLight);
 
-var dLight = new THREE.DirectionalLight(0xcccccc, 1);
-dLight.position.set(-70, -50, 80);
-scene.add(dLight);
-*/
-
+var dirLight = new THREE.DirectionalLight(0xcccccc, 1);
+dirLight.position.set(-70, -50, 80);
+scene.add(dirLight);
 
 
 function render() {
@@ -68,7 +65,7 @@ csv('data/Oslo_bef_100m_2015.csv').get(function(error, data) { // ru250m_2015.cs
 
         var geometry = new THREE.BoxGeometry(boxSize, boxSize, value * valueFactor);
 
-        var material = new THREE.MeshBasicMaterial({
+        var material = new THREE.MeshPhongMaterial({
             color: colorScale(value)
         });
 
