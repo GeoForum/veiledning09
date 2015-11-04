@@ -156,6 +156,6 @@ var material = new THREE.MeshPhongMaterial({
 });
 ```  
 
-Kartet vårt er nå ferdig: 
+<a href="http://geoforum.github.io/veiledning09/">Kartet vårt er nå ferdig</a>: 
 
 [![3D befolkningskart for Oslo](img/population_final.png)](http://geoforum.github.io/veiledning09/)
