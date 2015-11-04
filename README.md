@@ -93,5 +93,44 @@ Vi lager en egen funksjon som tegner ut scenen kontinuerlig ettersom kameravinke
 
 Prøv å endre kameraposisjonen ved å justere verdiene for: camera.position.set(0, -200, 120)
 
+Vi er nå klare for å legge på befolkningsdataene fra SSB: 
+
+```javascript
+var cellSize = 100,
+    xCells = boundsWidth / cellSize,
+    yCells = boundsHeight / cellSize,
+    boxSize = sceneWidth / xCells,
+    valueFactor = 0.02;
+    
+var colorScale = d3.scale.linear()
+    .domain([0, 100, 617])
+    .range(['#fec576', '#f99d1c', '#E31A1C']);
+
+var csv = d3.dsv(' ', 'text/plain');
+
+csv('data/Oslo_bef_100m_2015.csv').get(function(error, data) { // ru250m_2015.csv
+    for (var i = 0; i < data.length; i++) {
+        var id = data[i].rute_100m,
+            utmX = parseInt(id.substring(0, 7)) - 2000000 + cellSize, // First seven digits minus false easting
+            utmY = parseInt(id.substring(7, 14)) + cellSize, // Last seven digits
+            sceneX = (utmX - bounds[0]) / (boundsWidth / sceneWidth) - sceneWidth / 2,
+            sceneY = (utmY - bounds[1]) / (boundsHeight / sceneHeight) - sceneHeight / 2,
+            value = parseInt(data[i].sum);
+
+        var geometry = new THREE.BoxGeometry(boxSize, boxSize, value * valueFactor);
+
+        var material = new THREE.MeshBasicMaterial({
+            color: color(value)
+        });
+
+        var cube = new THREE.Mesh(geometry, material);
+        cube.position.set(sceneX, sceneY, value * valueFactor / 2);
+
+        scene.add(cube);
+    }
+});
+```
+
+Her bruker vi <a href="http://d3js.org/">D3.js</a> til å lese inn dataene, og for hver rute finner vi x og y koordinat (<a href="https://github.com/GeoForum/veiledning08#hvordan-lage-et-rutenett">se detaljer i veiledning 8</a>).  
 
 
