@@ -131,6 +131,12 @@ csv('data/Oslo_bef_100m_2015.csv').get(function(error, data) { // ru250m_2015.cs
 });
 ```
 
-Her bruker vi <a href="http://d3js.org/">D3.js</a> til å lese inn dataene, og for hver rute finner vi x og y koordinat (<a href="https://github.com/GeoForum/veiledning08#hvordan-lage-et-rutenett">se detaljer i veiledning 8</a>).  
+Vi definerere størrelsen på rutene (cellSize) til 100 meter, og regner ut hvor mye det tilsvarer i koordinatsystemet til Three.js (boxSize). Vi lager også en <a href="https://github.com/mbostock/d3/wiki/Quantitative-Scales#linear-scales">lineær fargeskala med D3.js</a>. Her bruker også D3.js til å lese inn dataene, og for hver rute finner vi x og y UTM-koordinat (<a href="https://github.com/GeoForum/veiledning08#hvordan-lage-et-rutenett">se detaljer i veiledning 8</a>). UTM-koordinatene blir så konvertert verdier som passer med scenen vi har definert over. 
+  
+Alle ruter får en søyle eller en boks (BoxGeometry) hvor høyden og fargen bestemmes av antall innbyggere. Søylen plasseres på riktig sted, og legges til scenen vår. 
+  
+![Befolkningssøyler](img/population_3d.png)
+  
+  
 
 

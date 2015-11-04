@@ -69,7 +69,7 @@ csv('data/Oslo_bef_100m_2015.csv').get(function(error, data) { // ru250m_2015.cs
         var geometry = new THREE.BoxGeometry(boxSize, boxSize, value * valueFactor);
 
         var material = new THREE.MeshBasicMaterial({
-            color: color(value)
+            color: colorScale(value)
         });
 
         var cube = new THREE.Mesh(geometry, material);
