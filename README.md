@@ -30,4 +30,4 @@ For å hente ut dette kartutsnittet for Oslo kan vi bruke følgende URL:
 
 Her har vi angitt at kartprojeksjonen ska være UTM 33N (CRS=EPSG:32633), utsnittet er definert av koordinatene over (BBOX=253700,6637800,273800,6663700), bildet skal være 2010 x 2590 px (WIDTH=2010, HEIGHT=2590), og vi ønsker å vise følgende kartlag (LAYERS): fjellskygge, vann, elver, bilveg og bygninger. URL'en returnerer dette kartet: 
 
-[![Bakgrunnskart for Oslo](img/wms.oslo.jpg)](http://geoforum.github.io/veiledning09/)
+[![Bakgrunnskart for Oslo](img/wms_oslo.jpg)](http://geoforum.github.io/veiledning09/)
