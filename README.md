@@ -9,7 +9,7 @@ Her skal vi vise de samme dataene i 3D med bruk av WebGL og <a href="http://thre
 
 I tillegg til fargen angir også høyden hvor mange som bor i hver rute på 100 x 100 meter. 
 
-[Fordeler og ulemper med 3D]
+Vi bør være forsiktig med bruk av 3D til å visualisere statistikk. Av og til kan det forsvares for å skape oppmerksomhet og interesse, og det kan være lettere å se geografiske variasjoner ved bruk av høyde enn kun farge. Samtidig vil søylene blokkere for hverandre, og perspektivet gjør det vanseligere å sammenligne søylene med hverandre.  
 
 Three.js er et biblioteket som gjør det mye enklere å lage 3D-visualiseringer i nettleseren. Det er ikke laget spesielt for kart, men heldigvis er det lett å konvertere UTM-koordinater til Three.js sitt koordinatsystem. 
 
@@ -159,3 +159,5 @@ var material = new THREE.MeshPhongMaterial({
 <a href="http://geoforum.github.io/veiledning09/">Kartet vårt er nå ferdig</a>: 
 
 [![3D befolkningskart for Oslo](img/population_final.png)](http://geoforum.github.io/veiledning09/)
+
+Hvordan synes du visualiserigen ble sammenlignet med <a href="http://geoforum.github.io/veiledning08/">det 2-dimensjonale kartet</a>? 
