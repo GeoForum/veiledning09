@@ -9,7 +9,7 @@ Her skal vi vise de samme dataene i 3D med bruk av WebGL og <a href="http://thre
 
 Vi bør være forsiktig med bruk av 3D til å visualisere statistikk. Av og til kan det forsvares for å skape oppmerksomhet og interesse, og det kan være lettere å se geografiske variasjoner ved bruk av en ekstra dimensjon. Samtidig vil søylene blokkere for hverandre, og perspektivet gjør det vanskeligere å sammenligne høydene.  
 
-Three.js er et biblioteket som gjør det mye enklere å lage 3D-visualiseringer i nettleseren. Det er ikke laget spesielt for kart, men heldigvis er det lett å konvertere UTM-koordinater til Three.js sitt koordinatsystem. 
+Three.js er et bibliotek som gjør det mye enklere å lage 3D-visualiseringer i nettleseren. Det er ikke laget spesielt for kart, men heldigvis er det lett å konvertere UTM-koordinater til Three.js sitt koordinatsystem. 
 
 ### WMS-tjenester fra Kartverket
 
